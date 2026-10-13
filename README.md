@@ -9,7 +9,7 @@ Built as SOC Tier 1 portfolio project #1.
 python3 phish_triage.py selftest
 python3 phish_triage.py samples/clean.eml
 python3 phish_triage.py samples/phish.eml
-python3 phish_triage.py suspicious.eml --json report.json
+python3 phish_triage.py suspicious.eml --json report.json --sigma hunt.yml --spl hunt.spl --kql hunt.kql
 ```
 
 ## What it checks
