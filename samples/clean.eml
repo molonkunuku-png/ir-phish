@@ -1,0 +1,17 @@
+From: Acme Store <news@acme-store.example>
+To: raja@example.com
+Reply-To: Acme Store <news@acme-store.example>
+Return-Path: <news@acme-store.example>
+Subject: Your October order has shipped
+Date: Mon, 12 Oct 2026 09:15:00 +0000
+Authentication-Results: mx.example.com; spf=pass; dkim=pass; dmarc=pass
+Message-ID: <oct-ship-001@acme-store.example>
+Content-Type: text/plain; charset="utf-8"
+
+Hi Raja,
+
+Your October order #48210 has shipped. Track it here:
+https://acme-store.example/track/48210
+
+Thanks for shopping with us,
+Acme Store

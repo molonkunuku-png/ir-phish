@@ -1,0 +1,23 @@
+From: IT Support <it-support@acme-corp.example>
+To: raja@example.com
+Reply-To: helpdesk-verify@acme-support-desk.example
+Return-Path: <bounce@acme-support-desk.example>
+Subject: URGENT: Your account will be SUSPENDED - verify now
+Date: Mon, 12 Oct 2026 03:02:11 +0000
+Authentication-Results: mx.example.com; spf=fail; dkim=fail; dmarc=fail
+Message-ID: <urg-9912@acme-support-desk.example>
+Content-Type: text/plain; charset="utf-8"
+
+Dear user,
+
+Your account will be SUSPENDED within 24 hours. You must verify your
+account immediately or action is required. Click here to verify and
+sign in to confirm your password:
+
+http://192.0.2.44.verify-login.example/confirm?user=raja
+http://bit.ly/3xAcmeVerify
+
+Failure to update your account will result in limited time suspension.
+See attached invoice for details.
+
+IT Support
