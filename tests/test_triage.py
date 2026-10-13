@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from IrPhish import report, detection_rules
+from IrPhish import report, detection_rules, main
 
 BASE = Path(__file__).resolve().parents[1] / "samples"
 
@@ -27,3 +27,13 @@ def test_bec_scores_suspicious_or_malicious():
     r = report(BASE / "bec.eml")
     assert r["score"] >= 40, r
     assert any("Executive" in x or "BEC" in x or "Payment-detail" in x for x in r["reasons"]), r
+
+def test_main_missing_file_returns_2():
+    assert main(["IrPhish.py", "/tmp/does-not-exist-irphish.eml"]) == 2
+
+def test_main_json_needs_path_returns_2():
+    assert main(["IrPhish.py", str(BASE / "clean.eml"), "--json"]) == 2
+
+def test_report_shows_date_and_hops():
+    r = report(BASE / "phish.eml")
+    assert r["date"] and r["received_count"] >= 0, r

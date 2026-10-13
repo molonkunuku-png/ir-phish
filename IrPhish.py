@@ -215,8 +215,13 @@ def main(argv):
             for reason in r["reasons"]:
                 print(f"           - {reason}")
         return 0
-    r = report(argv[1])
+    try:
+        r = report(argv[1])
+    except FileNotFoundError:
+        print(f"Error: file not found: {argv[1]}")
+        return 2
     print(f"File:    {r['file']}\nFrom:    {r['from']}\nReplyTo: {r['reply_to']}\n"
+          f"Date:    {r['date'] or '(none)'}  |  Hops: {r['received_count']}\n"
           f"Subject: {r['subject']}\nScore:   {r['score']}  ->  {r['verdict']}")
     print(f"URLs ({len(r['urls'])}):")
     for u in r["urls"][:10]:
@@ -225,7 +230,11 @@ def main(argv):
     for reason in r["reasons"] or ["(none)"]:
         print(f"  - {reason}")
     if "--json" in argv:
-        out = argv[argv.index("--json") + 1]
+        i = argv.index("--json")
+        if i + 1 >= len(argv) or argv[i + 1].startswith("-"):
+            print("Error: --json needs an output path, e.g. --json report.json")
+            return 2
+        out = argv[i + 1]
         Path(out).write_text(json.dumps(r, indent=2))
         print(f"Saved {out}")
     def _flag_path(flag, default_ext):
