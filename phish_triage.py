@@ -24,6 +24,36 @@ FIN_WORDS = ["wire transfer", "invoice", "payment", "refund", "gift card", "bank
              "beneficiary", "crypto", "bitcoin"]
 CRED_WORDS = ["password", "sign in", "log in", "login", "verify your account",
               "update your account", "click here to verify"]
+EXEC_TITLES = ["ceo", "cfo", "chief executive", "chief financial", "director",
+               "managing director", "president", "finance manager", "controller"]
+BEC_CHANGE_WORDS = ["new bank details", "updated bank", "update.*remittance",
+                    "change.*beneficiar", "new beneficiary", "kindly process",
+                    "keep.*confidential", "do not.*call"]
+
+
+def bec_check(parsed):
+    """BEC / vendor-fraud signals. Returns (pts, reasons)."""
+    pts, reasons = 0, []
+    low = (parsed["from"] + " " + parsed["subject"] + " " + parsed["body"]).lower()
+    from_disp = parsed["from"].lower()
+    if any(t in from_disp for t in EXEC_TITLES):
+        pts += 15
+        reasons.append("Executive impersonation in From display name")
+    import re as _re
+    m_from = _re.search(r"@([A-Za-z0-9.-]+\.[A-Za-z]{2,})", parsed["from"])
+    m_reply = _re.search(r"@([A-Za-z0-9.-]+\.[A-Za-z]{2,})", parsed["reply_to"])
+    if m_from and m_reply and m_from.group(1) != m_reply.group(1):
+        pts += 10
+        reasons.append(f"BEC domain pivot: From {m_from.group(1)} -> Reply-To {m_reply.group(1)}")
+    hits = [p for p in BEC_CHANGE_WORDS if _re.search(p, low)]
+    if hits:
+        pts += min(25, 12 + 6 * len(hits))
+        reasons.append(f"Payment-detail-change language ({len(hits)} patterns)")
+    if any(w in low for w in ["wire transfer", "gift card"]) and any(
+            w in low for w in ["asap", "urgent", "today", "confidential"]):
+        pts += 10
+        reasons.append("Urgency + payment combo (classic BEC pressure)")
+    return pts, reasons
 
 
 def parse_eml(path):
@@ -120,6 +150,11 @@ def score(parsed):
             break
     if parsed["attachments"]:
         reasons.append(f"Attachments: {', '.join(parsed['attachments'][:4])}")
+
+    # 6. BEC / vendor fraud (executive impersonation + payment-detail change)
+    bpts, breasons = bec_check(parsed)
+    pts += bpts
+    reasons.extend(breasons)
 
     pts = max(0, min(100, pts))
     verdict = "MALICIOUS" if pts >= 70 else "SUSPICIOUS" if pts >= 40 else "CLEAN"

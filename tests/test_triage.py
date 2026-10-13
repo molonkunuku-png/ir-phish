@@ -22,3 +22,8 @@ def test_detection_rules_contain_iocs():
     assert "bit.ly" in rules["sigma"] + rules["spl"] + rules["kql"], rules
     assert rules["sender_domain"] not in ("", "unknown"), rules
     assert "condition" in rules["sigma"] and "stats count by" in rules["spl"]
+
+def test_bec_scores_suspicious_or_malicious():
+    r = report(BASE / "bec.eml")
+    assert r["score"] >= 40, r
+    assert any("Executive" in x or "BEC" in x or "Payment-detail" in x for x in r["reasons"]), r

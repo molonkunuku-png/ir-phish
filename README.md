@@ -29,6 +29,11 @@ with reasons listed for every point source.
 pytest tests/ -v
 ```
 
+## Case write-ups (MITRE `T1566.002`)
+
+- `docs/CASE-01-credential-phish.md` — urgency + credential harvest, hard auth-fail.
+- `docs/CASE-02-bec-wire.md` — CFO impersonation + payment-detail change, no link needed.
+
 ## Next steps
 
 - Add `--sigma/--spl/--kql` export from sender domain + URLs (pattern already proven in ir-rose SigmaRose).

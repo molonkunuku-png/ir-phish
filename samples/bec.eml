@@ -1,0 +1,24 @@
+From: Daniel Kofi Mensah, CFO <d.k.mensah@acme-corp.example>
+To: raja@example.com
+Reply-To: d.k.mensah.finance@acme-finance-desk.example
+Return-Path: <bounce@acme-finance-desk.example>
+Subject: Confidential: process overdue vendor payment today
+Date: Tue, 13 Oct 2026 08:40:00 +0000
+Authentication-Results: mx.example.com; spf=softfail; dkim=none; dmarc=none
+Message-ID: <bec-0281@acme-finance-desk.example>
+Content-Type: text/plain; charset="utf-8"
+
+Hi Raja,
+
+I need you to process an overdue vendor payment today. We have
+updated our remittance details — please wire transfer USD 18,400 to
+the new beneficiary account below. New bank details are attached in
+our vendor file. Kindly process ASAP and keep this confidential
+until the board call ends. Do not call the office line, reply here.
+
+Beneficiary: Meridian Supplies Ltd
+IBAN: DE00 1234 5678 9000 0000 00
+
+Regards,
+Daniel
+Chief Financial Officer
