@@ -1,7 +1,7 @@
 # Case 01 — Credential-harvest phish ("IT Support" account suspension)
 
 - **Sample:** `samples/phish.eml`
-- **Tool verdict:** `MALICIOUS 100` (`python3 phish_triage.py samples/phish.eml`)
+- **Tool verdict:** `MALICIOUS 100` (`python3 IrPhish.py samples/phish.eml`)
 - **MITRE ATT&CK:** `T1566.002` — Phishing: Spearphishing Link
 
 ## Headers (what I looked at first)
@@ -36,7 +36,7 @@ in From is the single fastest tell, before reading a word of body.
 ## Detection rules generated
 
 ```bash
-python3 phish_triage.py samples/phish.eml \
+python3 IrPhish.py samples/phish.eml \
   --sigma export/case01.yml --spl export/case01.spl --kql export/case01.kql
 ```
 

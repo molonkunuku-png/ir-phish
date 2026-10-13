@@ -1,0 +1,2 @@
+# ir-phish is stdlib-only by design (Python 3.8+). No installs required.
+# Test runner (dev only): pytest

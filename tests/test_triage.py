@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from phish_triage import report, detection_rules
+from IrPhish import report, detection_rules
 
 BASE = Path(__file__).resolve().parents[1] / "samples"
 

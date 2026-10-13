@@ -1,7 +1,7 @@
 # Case 02 — BEC wire-fraud ("CFO" confidential vendor payment)
 
 - **Sample:** `samples/bec.eml`
-- **Tool verdict:** `MALICIOUS 100` (`python3 phish_triage.py samples/bec.eml`)
+- **Tool verdict:** `MALICIOUS 100` (`python3 IrPhish.py samples/bec.eml`)
 - **MITRE ATT&CK:** `T1566.002` — Phishing: Spearphishing Link (pretexting variant;
   no malicious link — the payload is a fraudulent payment instruction)
 
